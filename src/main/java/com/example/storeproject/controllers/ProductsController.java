@@ -28,5 +28,4 @@ public class ProductsController{
         model.addAttribute("ProductDto",productDto);
         return "products/CreateProduct";
     }
-
 }
