@@ -19,7 +19,7 @@ public class ProductDto {
     @Size(max=2000, message = "Quit Yappin!")
     private String description;
 
-    private MultipartFile imageFile;
+    private static MultipartFile imageFile;
 
     public String getName() {
         return name;
@@ -61,7 +61,7 @@ public class ProductDto {
         this.description = description;
     }
 
-    public MultipartFile getImageFile() {
+    public static MultipartFile getImageFile() {
         return imageFile;
     }
 
