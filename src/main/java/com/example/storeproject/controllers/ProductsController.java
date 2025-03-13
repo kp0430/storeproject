@@ -76,6 +76,8 @@ public class ProductsController {
             }
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
+            result.addError(new FieldError("productDto", "imageFile", "Failed to upload the image file. Please try again."));
+            return "products/CreateProduct";
         }
 
         Product product = new Product();
@@ -83,7 +85,7 @@ public class ProductsController {
         product.setBrand(productDto.getBrand());
         product.setDescription(productDto.getDescription());
         product.setCategory(productDto.getCategory());
-        product.setPrice(product.getPrice());
+        product.setPrice(productDto.getPrice());
         product.setCreatedAt(createdAt);
         product.setImageFileName(storageFileName);
 
@@ -176,7 +178,7 @@ public class ProductsController {
 
         try {
             Product product = repo.findById(id).get();
-            Path imagePath = Paths.get("public/images" + product.getImageFileName());
+            Path imagePath = Paths.get("public/images/" + product.getImageFileName());
 
             try {
                 Files.delete(imagePath);
