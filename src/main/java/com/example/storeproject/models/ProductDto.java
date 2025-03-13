@@ -1,5 +1,6 @@
 package com.example.storeproject.models;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -20,6 +21,16 @@ public class ProductDto {
     private String description;
 
     private static MultipartFile imageFile;
+
+    @AssertTrue(message = "File must be an image (JPEG, PNG, GIF)")
+    public boolean isImageFile() {
+        if (imageFile == null || imageFile.isEmpty()) {
+            return true; 
+        }
+        String contentType = imageFile.getContentType();
+        return contentType != null && (contentType.equals("image/jpeg") || contentType.equals("image/png") || contentType.equals("image/gif"));
+    }
+
 
     public String getName() {
         return name;
@@ -61,7 +72,7 @@ public class ProductDto {
         this.description = description;
     }
 
-    public static MultipartFile getImageFile() {
+    public  MultipartFile getImageFile() {
         return imageFile;
     }
 
